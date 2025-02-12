@@ -28,6 +28,7 @@ export const sendSuccess = (res, message, data = null, status = 200) => {
   export const sendError = (res, message, error = null, status = 500) => {
     return res.status(status).json({
       success: false,
+      status,
       message,
       error: error ? error.toString() : null,
     });

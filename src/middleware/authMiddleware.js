@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import { sendError } from '../utils/responseHandler.js';
 
 export default function authMiddleware(req, res, next) {
-  const token = req.header('Authorization');
+  let token = req.header('Authorization');
+  token = token ? token.replace('Bearer ', '') : null;
   if (!token) {
     return sendError(res, 'Access Denied: No token provided', null, 401);
   }

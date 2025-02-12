@@ -4,6 +4,7 @@ import Product from './Product.js';
 import Cart from './Cart.js';
 import Order from './Order.js';
 import Wishlist from './Wishlist.js';
+import Session from './Session.js';
 
 // Associations
 
@@ -19,4 +20,8 @@ Product.belongsToMany(User, { through: Cart, foreignKey: 'productId', as: 'users
 User.belongsToMany(Product, { through: Wishlist, foreignKey: 'userId', as: 'wishlist' });
 Product.belongsToMany(User, { through: Wishlist, foreignKey: 'productId', as: 'wishlistedBy' });
 
-export { User, Product, Cart, Order, Wishlist };
+// A User can have many Sessions (for tracking logged in sessions)
+User.hasMany(Session, { foreignKey: 'userId', as: 'sessions' });
+Session.belongsTo(User, { foreignKey: 'userId' });
+
+export { User, Product, Cart, Order, Wishlist, Session };
